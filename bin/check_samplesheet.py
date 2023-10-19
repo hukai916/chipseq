@@ -168,6 +168,7 @@ def check_samplesheet(file_in, file_out):
                 for idx, val in enumerate(sample_mapping_dict[sample]):
                     control = val[-1]
                     if control and control not in sample_mapping_dict.keys():
+                        print(sample_mapping_dict.keys())
                         print_error(
                             f"Control identifier has to match does a provided sample identifier!",
                             "Control",

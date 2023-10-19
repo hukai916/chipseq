@@ -8,3 +8,5 @@ testing*
 *.pyc
 test/
 test*
+results*
+result*

@@ -1,0 +1,7 @@
+sample,fastq_1,fastq_2,antibody,control
+WT_REP1,/Klf1-ChIP-WT-fl_S20_L001_R1_001.fastq.gz,/Klf1-ChIP-WT-fl_S20_L001_R2_001.fastq.gz,KLF1,C57_INPUT
+WT_REP1,/Klf1-ChIP-WT-fl_S20_L002_R1_001.fastq.gz,/Klf1-ChIP-WT-fl_S20_L002_R2_001.fastq.gz,KLF1,C57_INPUT
+C57_REP1,/Klf1-ChIP-C57-Bl6-fl_S21_L001_R1_001.fastq.gz,/Klf1-ChIP-C57-Bl6-fl_S21_L001_R2_001.fastq.gz,KLF1,C57_INPUT
+C57_REP1,/Klf1-ChIP-C57-Bl6-fl_S21_L002_R1_001.fastq.gz,/Klf1-ChIP-C57-Bl6-fl_S21_L002_R2_001.fastq.gz,KLF1,C57_INPUT
+C57_INPUT_REP1,/input-C57-Bl6-fl_S23_L001_R1_001.fastq.gz,/input-C57-Bl6-fl_S23_L001_R2_001.fastq.gz,,
+C57_INPUT_REP1,/input-C57-Bl6-fl_S23_L002_R1_001.fastq.gz,/input-C57-Bl6-fl_S23_L002_R2_001.fastq.gz,,

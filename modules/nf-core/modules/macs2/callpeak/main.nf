@@ -36,7 +36,7 @@ process MACS2_CALLPEAK {
         args_list.remove(id)
     }
     """
-    macs2 \\
+    macs2  \\
         callpeak \\
         ${args_list.join(' ')} \\
         --gsize $macs2_gsize \\

@@ -454,7 +454,7 @@ workflow CHIPSEQ {
     //
     // MODULE: Call peaks with MACS2
     //
-    log.info params.narrow_peak
+    log.info "test"
     MACS2_CALLPEAK (
         ch_ip_control_bam,
         ch_macs_gsize

@@ -12,8 +12,9 @@ nextflow run main.nf -profile mamba,lsf,singularity -c test.config -resume
 ## The Allo pipeline:
 1. Map with Bowtie2 while allowing for multimapping
   Do not filter by MAPQ or deduplicate, let Allo adjust the BAM and MAPQ scores first.
+  (Allo: https://github.com/seqcode/allo)
   Choose Bowtie2 over BWA because Bowtie2 easier to keep multi-mapped reads.
 2. Output Bowtie2 results to Allo for multimapping correction
 3. Call peaks with MACS3
-4. Annotate peaks using TE-specific fiels from Telescope or SQUIRE
+4. Annotate peaks using TE-specific files from Telescope or SQUIRE
 5. Compare with RNA-seq derived HERV expression profile

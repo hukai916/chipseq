@@ -24,6 +24,7 @@ include { BAM_FILTER_BAMTOOLS    } from '../subworkflows/local/bam_filter_bamtoo
 include { BAM_BEDGRAPH_BIGWIG_BEDTOOLS_UCSC                       } from '../subworkflows/local/bam_bedgraph_bigwig_bedtools_ucsc'
 include { BAM_PEAKS_CALL_QC_ANNOTATE_MACS3_HOMER                  } from '../subworkflows/local/bam_peaks_call_qc_annotate_macs3_homer'
 include { BED_CONSENSUS_QUANTIFY_QC_BEDTOOLS_FEATURECOUNTS_DESEQ2 } from '../subworkflows/local/bed_consensus_quantify_qc_bedtools_featurecounts_deseq2'
+include { DEDUP_MULTIMAPPER         } from '../modules/local/dedup_multimapper'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -261,13 +262,11 @@ workflow CHIPSEQ {
     )
 
 // Added by Kai: 
-   // Need to dedup the BAM using 
-
-
-//
-
-
-
+   // 
+   // MODULE: Deduplicate BAM in a multi-mapper aware way
+//    DEDUP_MULTIMAPPER (
+//     PICARD_MERGESAMFILES.out.bam
+//    )
 
     //
     // SUBWORKFLOW: Mark duplicates & filter BAM files after merging

@@ -1,5 +1,5 @@
 sample,fastq_1,fastq_2,replicate,antibody,control,control_replicate
-DMSO_INPUT,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543540_1.fastq.gz,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543540_2.fastq.gz,1,,,
+DMSO_INPUT,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543540_1.fastq.gz,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543540_2.fastq.gz,1,,,  
 DMSO_INPUT,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543541_1.fastq.gz,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543541_2.fastq.gz,1,,,
 DMSO_INPUT,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543538_1.fastq.gz,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543538_2.fastq.gz,2,,,
 DMSO_INPUT,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543539_1.fastq.gz,/home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/data/fastq_from_sra/SRR31543539_2.fastq.gz,2,,,

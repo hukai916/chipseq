@@ -260,6 +260,15 @@ workflow CHIPSEQ {
         ch_sort_bam
     )
 
+// Added by Kai: 
+   // Need to dedup the BAM using 
+
+
+//
+
+
+
+
     //
     // SUBWORKFLOW: Mark duplicates & filter BAM files after merging
     //

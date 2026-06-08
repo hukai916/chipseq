@@ -18,3 +18,5 @@ nextflow run main.nf -profile mamba,lsf,singularity -c test.config -resume
 3. Call peaks with MACS3
 4. Annotate peaks using TE-specific files from Telescope or SQUIRE
 5. Compare with RNA-seq derived HERV expression profile
+
+# Data from: GSE283103

@@ -4,7 +4,7 @@
 
 include { DEDUP_MULTIMAPPER } from '../../../modules/local/dedup_multimapper/main'
 include { SAMTOOLS_INDEX        } from '../../../modules/nf-core/samtools/index/main'
-include { BAM_STATS_SAMTOOLS    } from '../../../nf-core/bam_stats_samtools/main'
+include { BAM_STATS_SAMTOOLS    } from '../../../subworkflows/nf-core/bam_stats_samtools/main'
 
 workflow BAM_MARKDUPLICATES_MULTIMAPPER {
 

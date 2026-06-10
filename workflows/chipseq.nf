@@ -24,8 +24,6 @@ include { BAM_FILTER_BAMTOOLS    } from '../subworkflows/local/bam_filter_bamtoo
 include { BAM_BEDGRAPH_BIGWIG_BEDTOOLS_UCSC                       } from '../subworkflows/local/bam_bedgraph_bigwig_bedtools_ucsc'
 include { BAM_PEAKS_CALL_QC_ANNOTATE_MACS3_HOMER                  } from '../subworkflows/local/bam_peaks_call_qc_annotate_macs3_homer'
 include { BED_CONSENSUS_QUANTIFY_QC_BEDTOOLS_FEATURECOUNTS_DESEQ2 } from '../subworkflows/local/bed_consensus_quantify_qc_bedtools_featurecounts_deseq2'
-include { DEDUP_MULTIMAPPER         } from '../modules/local/dedup_multimapper'
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
@@ -55,6 +53,8 @@ include { FASTQ_ALIGN_BWA                  } from '../subworkflows/nf-core/fastq
 include { FASTQ_ALIGN_BOWTIE2              } from '../subworkflows/nf-core/fastq_align_bowtie2'
 include { FASTQ_ALIGN_CHROMAP              } from '../subworkflows/nf-core/fastq_align_chromap'
 include { BAM_MARKDUPLICATES_PICARD        } from '../subworkflows/nf-core/bam_markduplicates_picard'
+
+include { BAM_MARKDUPLICATES_MULTIMAPPER        } from '../subworkflows/local/bam_markduplicates_multimapper'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -264,30 +264,57 @@ workflow CHIPSEQ {
 // Added by Kai: 
    // 
    // MODULE: Deduplicate BAM in a multi-mapper aware way
-//    DEDUP_MULTIMAPPER (
-//     PICARD_MERGESAMFILES.out.bam
-//    )
+
+    if (params.markduplicates == 'multimapper') {
+        BAM_MARKDUPLICATES_MULTIMAPPER (
+            PICARD_MERGESAMFILES.out.bam,
+            ch_fasta
+                .map {
+                    [ [:], it ]
+                },
+            ch_fai
+                .map {
+                    [ [:], it ]
+                }
+        )
+        ch_dedup_bam = BAM_MARKDUPLICATES_MULTIMAPPER.out
+    } else if (params.markduplicates == 'picard') {
+        BAM_MARKDUPLICATES_PICARD (
+            PICARD_MERGESAMFILES.out.bam,
+            ch_fasta
+                .map {
+                    [ [:], it ]
+                },
+            ch_fai
+                .map {
+                    [ [:], it ]
+                }
+        )
+        ch_dedup_bam = BAM_MARKDUPLICATES_PICARD.out
+    } else {
+        error("Invalid markduplicates parameter: ${params.markduplicates}")
+    }
 
     //
     // SUBWORKFLOW: Mark duplicates & filter BAM files after merging
     //
-    BAM_MARKDUPLICATES_PICARD (
-        PICARD_MERGESAMFILES.out.bam,
-        ch_fasta
-            .map {
-                [ [:], it ]
-            },
-        ch_fai
-            .map {
-                [ [:], it ]
-            }
-    )
+    // BAM_MARKDUPLICATES_PICARD (
+    //     PICARD_MERGESAMFILES.out.bam,
+    //     ch_fasta
+    //         .map {
+    //             [ [:], it ]
+    //         },
+    //     ch_fai
+    //         .map {
+    //             [ [:], it ]
+    //         }
+    // )
 
     //
     // SUBWORKFLOW: Filter BAM file with BamTools
     //
     BAM_FILTER_BAMTOOLS (
-        BAM_MARKDUPLICATES_PICARD.out.bam.join(BAM_MARKDUPLICATES_PICARD.out.bai, by: [0]),
+        ch_dedup_bam.bam.join(ch_dedup_bam.bai, by: [0]),
         ch_filtered_bed.first(),
         ch_fasta
             .map {
@@ -303,7 +330,7 @@ workflow CHIPSEQ {
     ch_preseq_multiqc = channel.empty()
     if (!params.skip_preseq) {
         PRESEQ_LCEXTRAP (
-            BAM_MARKDUPLICATES_PICARD.out.bam
+            ch_dedup_bam.bam
         )
         ch_preseq_multiqc = PRESEQ_LCEXTRAP.out.lc_extrap
     }
@@ -567,10 +594,10 @@ workflow CHIPSEQ {
             ch_samtools_flagstat.collect{it[1]}.ifEmpty([]),
             ch_samtools_idxstats.collect{it[1]}.ifEmpty([]),
 
-            BAM_MARKDUPLICATES_PICARD.out.stats.collect{it[1]}.ifEmpty([]),
-            BAM_MARKDUPLICATES_PICARD.out.flagstat.collect{it[1]}.ifEmpty([]),
-            BAM_MARKDUPLICATES_PICARD.out.idxstats.collect{it[1]}.ifEmpty([]),
-            BAM_MARKDUPLICATES_PICARD.out.metrics.collect{it[1]}.ifEmpty([]),
+            ch_dedup_bam.stats.collect{it[1]}.ifEmpty([]),
+            ch_dedup_bam.flagstat.collect{it[1]}.ifEmpty([]),
+            ch_dedup_bam.idxstats.collect{it[1]}.ifEmpty([]),
+            ch_dedup_bam.metrics.collect{it[1]}.ifEmpty([]),
 
             BAM_FILTER_BAMTOOLS.out.stats.collect{it[1]}.ifEmpty([]),
             BAM_FILTER_BAMTOOLS.out.flagstat.collect{it[1]}.ifEmpty([]),

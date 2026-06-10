@@ -7,5 +7,7 @@ testing/
 testing*
 *.pyc
 null/
+test_*
+test.*
 
 .nf-test*

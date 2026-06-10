@@ -4,5 +4,5 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - bioconda::pysam=0.23.3
-  - bioconda::samtools=1.23
+  # renovate: datasource=conda depName=bioconda/picard
+  - bioconda::picard=3.4.0

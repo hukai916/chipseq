@@ -2,14 +2,24 @@
 /*
  * Standalone test entry for BAM_MARKDUPLICATES_MULTIMAPPER.
  *
- * Run from subworkflows/local/bam_markduplicates_multimapper/ directory:
-    // cd /path/to/02_chipseq/subworkflows/local/bam_markduplicates_multimapper/
-    // nextflow run run_test.nf -c test2.config -profile mamba,lsf,singularity -resume
-*/
+ * Uses RUN_BAM_MARKDUPLICATES_MULTIMAPPER wrapper so task names include
+ * BAM_MARKDUPLICATES_MULTIMAPPER:PROCESS (matches modules.config withName).
+ *
+ * From this directory:
+ *   nextflow run run_test.nf -entry RUN_TEST -c test2.config -profile mamba,lsf,singularity -resume
+ *
+ * From pipeline root (02_chipseq/):
+ *   nextflow run subworkflows/local/bam_markduplicates_multimapper/run_test.nf \
+ *     -entry RUN_TEST \
+ *     -c subworkflows/local/bam_markduplicates_multimapper/test2.config \
+ *     -profile mamba,lsf,singularity \
+ *     -resume
+ */
 
-include { BAM_MARKDUPLICATES_MULTIMAPPER } from './main'
+include { RUN_BAM_MARKDUPLICATES_MULTIMAPPER } from './main'
 
-workflow {
+workflow RUN_TEST {
+
     if (!params.test_bam) {
         error('Set --test_bam to a merged coordinate-sorted BAM (e.g. PICARD_MERGESAMFILES output)')
     }
@@ -29,5 +39,5 @@ workflow {
         file(params.fai, checkIfExists: true),
     ])
 
-    BAM_MARKDUPLICATES_MULTIMAPPER(ch_reads, ch_fasta, ch_fai)
+    RUN_BAM_MARKDUPLICATES_MULTIMAPPER(ch_reads, ch_fasta, ch_fai)
 }

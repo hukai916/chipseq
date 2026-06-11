@@ -44,3 +44,20 @@ workflow BAM_MARKDUPLICATES_MULTIMAPPER {
     flagstat = BAM_STATS_SAMTOOLS.out.flagstat   // channel: [ val(meta), path(flagstat) ]
     idxstats = BAM_STATS_SAMTOOLS.out.idxstats   // channel: [ val(meta), path(idxstats) ]
 }
+
+//
+// Wrapper for standalone runs (run_test.nf -entry RUN_TEST).
+// When BAM_MARKDUPLICATES_MULTIMAPPER is the top-level entry, Nextflow names tasks
+// DEDUP_MULTIMAPPER etc. and modules.config publishDir selectors do not match.
+// Calling it from this wrapper yields RUN_BAM_MARKDUPLICATES_MULTIMAPPER:BAM_MARKDUPLICATES_MULTIMAPPER:PROCESS.
+//
+workflow RUN_BAM_MARKDUPLICATES_MULTIMAPPER {
+
+    take:
+    ch_reads   // channel: [ val(meta), path(reads) ]
+    ch_fasta   // channel: [ val(meta), path(fasta) ]
+    ch_fai     // channel: [ val(meta), path(fai) ]
+
+    main:
+    BAM_MARKDUPLICATES_MULTIMAPPER(ch_reads, ch_fasta, ch_fai)
+}

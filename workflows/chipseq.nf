@@ -21,6 +21,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_chip
 include { INPUT_CHECK            } from '../subworkflows/local/input_check'
 include { ALIGN_STAR             } from '../subworkflows/local/align_star'
 include { BAM_FILTER_BAMTOOLS    } from '../subworkflows/local/bam_filter_bamtools'
+include { BAM_ALLO_REDUCE        } from '../subworkflows/local/bam_allo_reduce'
 include { BAM_BEDGRAPH_BIGWIG_BEDTOOLS_UCSC                       } from '../subworkflows/local/bam_bedgraph_bigwig_bedtools_ucsc'
 include { BAM_PEAKS_CALL_QC_ANNOTATE_MACS3_HOMER                  } from '../subworkflows/local/bam_peaks_call_qc_annotate_macs3_homer'
 include { BED_CONSENSUS_QUANTIFY_QC_BEDTOOLS_FEATURECOUNTS_DESEQ2 } from '../subworkflows/local/bed_consensus_quantify_qc_bedtools_featurecounts_deseq2'
@@ -263,7 +264,7 @@ workflow CHIPSEQ {
 
 // Added by Kai: 
    // 
-   // MODULE: Deduplicate BAM in a multi-mapper aware way
+   // MODULE: Deduplicate BAM in a multi-mapper aware way after merging
 
     if (params.markduplicates == 'multimapper') {
         BAM_MARKDUPLICATES_MULTIMAPPER (
@@ -296,21 +297,6 @@ workflow CHIPSEQ {
     }
 
     //
-    // SUBWORKFLOW: Mark duplicates & filter BAM files after merging
-    //
-    // BAM_MARKDUPLICATES_PICARD (
-    //     PICARD_MERGESAMFILES.out.bam,
-    //     ch_fasta
-    //         .map {
-    //             [ [:], it ]
-    //         },
-    //     ch_fai
-    //         .map {
-    //             [ [:], it ]
-    //         }
-    // )
-
-    //
     // SUBWORKFLOW: Filter BAM file with BamTools
     //
     BAM_FILTER_BAMTOOLS (
@@ -323,6 +309,36 @@ workflow CHIPSEQ {
         ch_bamtools_filter_se_config,
         ch_bamtools_filter_pe_config
     )
+
+    //
+    // SUBWORKFLOW: Allo multimapper allocation (optional, post-filter)
+    //
+    ch_merged_library_bam      = channel.empty()
+    ch_merged_library_bai      = channel.empty()
+    ch_merged_library_stats    = channel.empty()
+    ch_merged_library_flagstat = channel.empty()
+    ch_merged_library_idxstats = channel.empty()
+
+    if (params.use_allo) {
+        BAM_ALLO_REDUCE (
+            BAM_FILTER_BAMTOOLS.out.bam,
+            ch_fasta
+                .map {
+                    [ [:], it ]
+                }
+        )
+        ch_merged_library_bam      = BAM_ALLO_REDUCE.out.bam
+        ch_merged_library_bai      = BAM_ALLO_REDUCE.out.bai
+        ch_merged_library_stats    = BAM_ALLO_REDUCE.out.stats
+        ch_merged_library_flagstat = BAM_ALLO_REDUCE.out.flagstat
+        ch_merged_library_idxstats = BAM_ALLO_REDUCE.out.idxstats
+    } else {
+        ch_merged_library_bam      = BAM_FILTER_BAMTOOLS.out.bam
+        ch_merged_library_bai      = BAM_FILTER_BAMTOOLS.out.bai
+        ch_merged_library_stats    = BAM_FILTER_BAMTOOLS.out.stats
+        ch_merged_library_flagstat = BAM_FILTER_BAMTOOLS.out.flagstat
+        ch_merged_library_idxstats = BAM_FILTER_BAMTOOLS.out.idxstats
+    }
 
     //
     // MODULE: Preseq coverage analysis
@@ -341,9 +357,7 @@ workflow CHIPSEQ {
     ch_picardcollectmultiplemetrics_multiqc = channel.empty()
     if (!params.skip_picard_metrics) {
         PICARD_COLLECTMULTIPLEMETRICS (
-            BAM_FILTER_BAMTOOLS
-                .out
-                .bam
+            ch_merged_library_bam
                 .map {
                     [ it[0], it[1], [] ]
                 },
@@ -368,7 +382,7 @@ workflow CHIPSEQ {
     ch_multiqc_phantompeakqualtools_correlation_multiqc = channel.empty()
     if (!params.skip_spp) {
         PHANTOMPEAKQUALTOOLS (
-            BAM_FILTER_BAMTOOLS.out.bam
+            ch_merged_library_bam
         )
         ch_phantompeakqualtools_spp_multiqc           = PHANTOMPEAKQUALTOOLS.out.spp
 
@@ -390,7 +404,7 @@ workflow CHIPSEQ {
     // SUBWORKFLOW: Normalised bigWig coverage tracks
     //
     BAM_BEDGRAPH_BIGWIG_BEDTOOLS_UCSC (
-        BAM_FILTER_BAMTOOLS.out.bam.join(BAM_FILTER_BAMTOOLS.out.flagstat, by: [0]),
+        ch_merged_library_bam.join(ch_merged_library_flagstat, by: [0]),
         ch_chrom_sizes
     )
 
@@ -424,10 +438,8 @@ workflow CHIPSEQ {
     //
     // Create channels: [ meta, [ ip_bam, control_bam ] [ ip_bai, control_bai ] ]
     //
-    BAM_FILTER_BAMTOOLS
-        .out
-        .bam
-        .join(BAM_FILTER_BAMTOOLS.out.bai, by: [0])
+    ch_merged_library_bam
+        .join(ch_merged_library_bai, by: [0])
         .set { ch_genome_bam_bai }
 
     ch_genome_bam_bai
@@ -599,9 +611,9 @@ workflow CHIPSEQ {
             ch_dedup_bam.idxstats.collect{it[1]}.ifEmpty([]),
             ch_dedup_bam.metrics.collect{it[1]}.ifEmpty([]),
 
-            BAM_FILTER_BAMTOOLS.out.stats.collect{it[1]}.ifEmpty([]),
-            BAM_FILTER_BAMTOOLS.out.flagstat.collect{it[1]}.ifEmpty([]),
-            BAM_FILTER_BAMTOOLS.out.idxstats.collect{it[1]}.ifEmpty([]),
+            ch_merged_library_stats.collect{it[1]}.ifEmpty([]),
+            ch_merged_library_flagstat.collect{it[1]}.ifEmpty([]),
+            ch_merged_library_idxstats.collect{it[1]}.ifEmpty([]),
             ch_picardcollectmultiplemetrics_multiqc.collect{it[1]}.ifEmpty([]),
 
             ch_preseq_multiqc.collect{it[1]}.ifEmpty([]),

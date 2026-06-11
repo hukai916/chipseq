@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Optimized deduplication for BAM files with multi-mapped reads.
 # Compared to 03a: uses a signature inverted index and exact frozenset cache
 # to avoid scanning the full fingerprint_db for every read group.

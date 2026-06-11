@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Shared BAM validation helpers for dedup scripts."""
 
 import sys

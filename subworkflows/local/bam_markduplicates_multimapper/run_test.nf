@@ -4,7 +4,7 @@
  *
  * Run from pipeline root (02_chipseq/):
     // cd /path/to/02_chipseq/subworkflows/local/bam_markduplicates_multimapper/
-    // nextflow run run_test.nf   -c ../../../test1.config   -c test2.config   -c ../../../nextflow.config   -profile mamba,lsf,singularity   -resume
+    // nextflow run run_test.nf  -c ../../../nextflow.config -c ../../../test1.config   -c test2.config      -profile mamba,lsf,singularity   -resume
 */
 
 include { BAM_MARKDUPLICATES_MULTIMAPPER } from './main'

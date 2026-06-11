@@ -3,9 +3,9 @@ process DEDUP_MULTIMAPPER {
     label 'process_medium'
 
     conda "${moduleDir}/environment.yml"
-    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/08/0861295baa7c01fc593a9da94e82b44a729dcaf8da92be8e565da109aa549b25/data'
-        : 'community.wave.seqera.io/library/picard:3.4.0--e9963040df0a9bf6'}"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/87/87b06acf94e50ddd0d4ce705952ecb496a81b6665f7971cd7492f270d921cb6c/data'
+        : 'community.wave.seqera.io/library/pysam_samtools:b9e3a5f6b6caee59'}"
 
     input:
     tuple val(meta), path(reads)
@@ -16,8 +16,8 @@ process DEDUP_MULTIMAPPER {
     tuple val(meta), path("*.bam"), emit: bam, optional: true
     tuple val(meta), path("*.bai"), emit: bai, optional: true
     tuple val(meta), path("*.cram"), emit: cram, optional: true
-    tuple val(meta), path("*.metrics.txt"), emit: metrics
-    tuple val("${task.process}"), val('picard'), eval("picard MarkDuplicates --version 2>&1 | sed -n 's/.*Version://p'"), topic: versions, emit: versions_picard
+    tuple val(meta), path("*.txt"), emit: metrics, optional: true
+    tuple val("${task.process}"), val('dedup_multimapper'), eval("dedup_multimapper.py --version 2>&1 | sed -n 's/.*Version://p'"), topic: versions, emit: versions_dedup_multimapper
 
     when:
     task.ext.when == null || task.ext.when
@@ -26,27 +26,25 @@ process DEDUP_MULTIMAPPER {
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     def suffix = task.ext.suffix ?: "${reads.getExtension()}"
-    def reference = fasta ? "--REFERENCE_SEQUENCE ${fasta}" : ""
-    def avail_mem = 3072
-    if (!task.memory) {
-        log.info('[Picard MarkDuplicates] Available memory not known - defaulting to 3GB. Specify process memory requirements to change this.')
-    }
-    else {
-        avail_mem = (task.memory.mega * 0.8).intValue()
-    }
+    // def reference = fasta ? "--REFERENCE_SEQUENCE ${fasta}" : ""
+    // def avail_mem = 3072
+    // if (!task.memory) {
+    //     log.info('[Picard MarkDuplicates] Available memory not known - defaulting to 3GB. Specify process memory requirements to change this.')
+    // }
+    // else {
+    //     avail_mem = (task.memory.mega * 0.8).intValue()
+    // }
 
     if ("${reads}" == "${prefix}.${suffix}") {
         error("Input and output names are the same, use \"task.ext.prefix\" to disambiguate!")
     }
     """
-    picard \\
-        -Xmx${avail_mem}M \\
-        MarkDuplicates \\
+    dedup_multimapper.py \\
         ${args} \\
-        --INPUT ${reads} \\
-        --OUTPUT ${prefix}.${suffix} \\
-        ${reference} \\
-        --METRICS_FILE ${prefix}.metrics.txt
+        --input ${reads} \\
+        --output ${prefix}.${suffix} \\
+        --sort-threads ${task.cpus} \\
+        --log ${prefix}.log.txt
     """
 
     stub:

@@ -3,12 +3,8 @@
  * Standalone test entry for BAM_MARKDUPLICATES_MULTIMAPPER.
  *
  * Run from pipeline root (02_chipseq/):
-// nextflow run subworkflows/local/bam_markduplicates_multimapper/run_test.nf \
-//   -c test1.config \
-//   -c subworkflows/local/bam_markduplicates_multimapper/test2.config \
-//   -c nextflow.config \
-//   -profile mamba,lsf,singularity \
-//   -resume
+    // cd /path/to/02_chipseq/subworkflows/local/bam_markduplicates_multimapper/
+    // nextflow run run_test.nf   -c ../../../test1.config   -c test2.config   -c ../../../nextflow.config   -profile mamba,lsf,singularity   -resume
 */
 
 include { BAM_MARKDUPLICATES_MULTIMAPPER } from './main'

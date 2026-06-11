@@ -7,6 +7,7 @@
 //   -c test1.config \
 //   -c subworkflows/local/bam_markduplicates_multimapper/test2.config \
 //   -c nextflow.config \
+//   -profile mamba,lsf,singularity \
 //   -resume
 */
 

@@ -3,9 +3,9 @@ process ALLO_REDUCE {
     label 'process_high'
 
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
-        ? 'https://depot.galaxyproject.org/singularity/allo:1.2.0--pyhdfd78af_0'
-        : 'quay.io/biocontainers/allo:1.2.0--pyhdfd78af_0' }"
+    container "${ workflow.containerEngine == 'singularity'
+        ? 'docker://hukai916/allo:0.2'
+        : 'hukai916/allo:0.2' }"
 
     input:
     tuple val(meta), path(bam)

@@ -3,7 +3,6 @@
 // Emits the same channels as BAM_FILTER_BAMTOOLS for drop-in use downstream.
 //
 
-include { SAMTOOLS_SORT                            } from '../../../modules/nf-core/samtools/sort'
 include { BAM_SORT_STATS_SAMTOOLS                    } from '../../nf-core/bam_sort_stats_samtools'
 include { BAM_SORT_STATS_SAMTOOLS as BAM_SORT_STATS_PE } from '../../nf-core/bam_sort_stats_samtools'
 include { ALLO_REDUCE                              } from '../../../modules/local/allo_reduce'
@@ -28,15 +27,11 @@ workflow BAM_ALLO_REDUCE {
         .set { ch_bam_branched }
 
     //
-    // Allo requires name-sorted (queryname) input (SE and PE)
+    // Allo requires queryname-grouped input; collate runs inside ALLO_REDUCE
     //
-    SAMTOOLS_SORT (
-        ch_bam_branched.single_end.mix(ch_bam_branched.paired_end),
-        ch_fasta,
-        ''
+    ALLO_REDUCE (
+        ch_bam_branched.single_end.mix(ch_bam_branched.paired_end)
     )
-
-    ALLO_REDUCE ( SAMTOOLS_SORT.out.bam )
 
     ALLO_REDUCE
         .out
@@ -71,7 +66,6 @@ workflow BAM_ALLO_REDUCE {
     )
 
     emit:
-    name_bam = SAMTOOLS_SORT.out.bam                                                              // channel: [ val(meta), path(bam) ] name-sorted input to Allo
     bam      = BAM_SORT_STATS_PE.out.bam.mix(BAM_SORT_STATS_SAMTOOLS.out.bam)                     // channel: [ val(meta), path(bam) ]
     bai      = BAM_SORT_STATS_PE.out.bai.mix(BAM_SORT_STATS_SAMTOOLS.out.bai)                     // channel: [ val(meta), path(bai) ]
     stats    = BAM_SORT_STATS_PE.out.stats.mix(BAM_SORT_STATS_SAMTOOLS.out.stats)                 // channel: [ val(meta), path(stats) ]

@@ -36,20 +36,22 @@ process ALLO_REDUCE {
     allo \\
         collated.bam \\
         -seq ${seq_mode} \\
-        -o ${prefix} \\
+        -o ${prefix}.sam \\
         -p ${task.cpus} \\
         ${args}
 
-    if [ -f ${prefix}.bam ]; then
-        :
-    elif [ -f ${prefix} ]; then
-        mv ${prefix} ${prefix}.bam
-    else
-        echo "ERROR: Allo did not produce expected output (tried ${prefix}.bam and ${prefix})" >&2
+    if [ ! -f ${prefix}.sam ]; then
+        echo "ERROR: Allo did not produce expected SAM output (${prefix}.sam)" >&2
         exit 1
     fi
 
-    rm -f collated.bam
+    samtools view \\
+        -@ ${task.cpus} \\
+        -b \\
+        -o ${prefix}.bam \\
+        ${prefix}.sam
+
+    rm -f collated.bam ${prefix}.sam
     """
 
     stub:

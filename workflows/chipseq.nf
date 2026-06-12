@@ -311,7 +311,7 @@ workflow CHIPSEQ {
     )
 
     //
-    // SUBWORKFLOW: Allo multimapper allocation (optional, post-filter)
+    // SUBWORKFLOW: Allo multimapper allocation (post-filter)
     //
     ch_merged_library_bam      = channel.empty()
     ch_merged_library_bai      = channel.empty()

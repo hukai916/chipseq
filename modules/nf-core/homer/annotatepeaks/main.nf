@@ -20,16 +20,25 @@ process HOMER_ANNOTATEPEAKS {
     task.ext.when == null || task.ext.when
 
     script:
-    def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
     def VERSION = '4.11'
+    def args = task.ext.args ?: '-gid'
+    def annotation_gtf = gtf
+    if (params.te_gtf) {
+        def te_gtf_file = file(params.te_gtf)
+        if (params.te_gtf_only) {
+            annotation_gtf = te_gtf_file
+        } else {
+            args = "${args} -ann ${te_gtf_file}".trim()
+        }
+    }
     // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     """
     annotatePeaks.pl \\
         ${peak} \\
         ${fasta} \\
         ${args} \\
-        -gtf ${gtf} \\
+        -gtf ${annotation_gtf} \\
         -cpu ${task.cpus} \\
         > ${prefix}.annotatePeaks.txt
 

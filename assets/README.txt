@@ -1,0 +1,1 @@
+1. transcripts.gtf: wget https://github.com/mlbendall/telescope_annotation_db/raw/refs/heads/master/builds/retro.hg38.v1/transcripts.gtf

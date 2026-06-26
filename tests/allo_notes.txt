@@ -1,0 +1,13 @@
+
+
+cd /path/to/02_chipseq/subworkflows/local/bam_markduplicates_multimapper/
+nextflow run run_test.nf -c test2.config -profile mamba,lsf,singularity -resume
+
+
+nextflow run run_test.nf -c test2.config -profile mamba,lsf,singularity -resume -entry RUN_TEST
+
+nextflow run main.nf \
+  -profile mamba,lsf,singularity \
+  -c test1.config \
+  -resume \
+  --markduplicates multimapper

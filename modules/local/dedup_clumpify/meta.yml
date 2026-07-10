@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: "dedup_clumpify"
+description: Deduplicate reads at the FASTQ level using Clumpify from BBTools
+keywords:
+  - deduplication
+  - clumpify
+  - bbmap
+  - bbtools
+  - fastq
+tools:
+  - "clumpify":
+      description: "Clumpify (BBTools/BBMap) groups reads sharing k-mers and can remove exact/near-exact duplicate reads directly from FASTQ files."
+      homepage: "https://sourceforge.net/projects/bbmap/"
+      documentation: "https://jgi.doe.gov/data-and-tools/software-tools/bbtools/"
+      tool_dev_url: "https://sourceforge.net/projects/bbmap/"
+      licence: ["BSD-3-clause"]
+      identifier: ""
+
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. `[ id:'sample1', single_end:false ]`
+    - reads1:
+        type: file
+        description: |
+          One or more R1 (or single-end) FastQ files belonging to the same merged
+          library (e.g. multiple technical replicates / resequencing runs). They are
+          concatenated before deduplication.
+        pattern: "*.{fastq,fq}.gz"
+    - reads2:
+        type: file
+        description: |
+          One or more R2 FastQ files belonging to the same merged library (paired-end
+          only; empty list for single-end). They are concatenated before deduplication.
+        pattern: "*.{fastq,fq}.gz"
+
+output:
+  - reads:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1', single_end:false ]`
+      - "*.fastq.gz":
+          type: file
+          description: Deduplicated FastQ file(s)
+          pattern: "*.fastq.gz"
+  - log:
+      - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. `[ id:'sample1', single_end:false ]`
+      - "*.log":
+          type: file
+          description: Clumpify log file
+          pattern: "*.log"
+  - versions:
+      - versions.yml:
+          type: file
+          description: File containing software versions
+          pattern: "versions.yml"
+
+authors:
+  - "@hukai916"
+maintainers:
+  - "@hukai916"

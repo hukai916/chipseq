@@ -242,6 +242,20 @@
                     "description": "Duplicate reads are not filtered from alignments.",
                     "fa_icon": "fas fa-cart-arrow-down"
                 },
+                "dedup_level": {
+                    "type": "string",
+                    "default": "bam",
+                    "description": "Level at which read deduplication is performed - 'bam' (default) marks/removes duplicates after alignment, 'fastq' deduplicates raw reads with Clumpify (BBTools) before alignment and skips the BAM-level deduplication step.",
+                    "fa_icon": "fas fa-layer-group",
+                    "enum": ["bam", "fastq"]
+                },
+                "markduplicates": {
+                    "type": "string",
+                    "default": "picard",
+                    "description": "Tool used for BAM-level deduplication when dedup_level is 'bam' - 'picard' (default) or 'multimapper'.",
+                    "fa_icon": "fas fa-copy",
+                    "enum": ["picard", "multimapper"]
+                },
                 "keep_multi_map": {
                     "type": "boolean",
                     "description": "Reads mapping to multiple locations are not filtered from alignments.",

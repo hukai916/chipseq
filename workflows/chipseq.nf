@@ -10,6 +10,7 @@
 include { IGV                                 } from '../modules/local/igv'
 include { MULTIQC                             } from '../modules/local/multiqc'
 include { MULTIQC_CUSTOM_PHANTOMPEAKQUALTOOLS } from '../modules/local/multiqc_custom_phantompeakqualtools'
+include { DEDUP_CLUMPIFY                      } from '../modules/local/dedup_clumpify/main'
 
 //
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
@@ -22,6 +23,7 @@ include { INPUT_CHECK            } from '../subworkflows/local/input_check'
 include { ALIGN_STAR             } from '../subworkflows/local/align_star'
 include { BAM_FILTER_BAMTOOLS    } from '../subworkflows/local/bam_filter_bamtools'
 include { BAM_ALLO_REDUCE        } from '../subworkflows/local/bam_allo_reduce'
+include { BAM_INDEX_STATS_SAMTOOLS } from '../subworkflows/local/bam_index_stats_samtools/main'
 include { BAM_BEDGRAPH_BIGWIG_BEDTOOLS_UCSC                       } from '../subworkflows/local/bam_bedgraph_bigwig_bedtools_ucsc'
 include { BAM_PEAKS_CALL_QC_ANNOTATE_MACS3_HOMER                  } from '../subworkflows/local/bam_peaks_call_qc_annotate_macs3_homer'
 include { BED_CONSENSUS_QUANTIFY_QC_BEDTOOLS_FEATURECOUNTS_DESEQ2 } from '../subworkflows/local/bed_consensus_quantify_qc_bedtools_featurecounts_deseq2'
@@ -150,6 +152,43 @@ workflow CHIPSEQ {
     )
 
     //
+    // MODULE: Optional FASTQ-level deduplication with Clumpify (BBTools)
+    // Added by Kai: when dedup_level == 'fastq', deduplicate reads here and skip BAM-level dedup.
+    // Technical replicates / resequenced runs (same sample, differing by the _T\d+ suffix)
+    // are pooled into a single merged library first, so Clumpify removes duplicates across
+    // the whole library at once (matching the merged-library semantics of BAM-level dedup).
+    //
+    ch_reads_for_alignment = FASTQ_FASTQC_UMITOOLS_TRIMGALORE.out.reads
+    if (params.dedup_level == 'fastq') {
+        FASTQ_FASTQC_UMITOOLS_TRIMGALORE.out.reads
+            .map {
+                meta, reads ->
+                    def merged_id  = meta.id - ~/_T\d+$/
+                    def meta_clone = meta.clone()
+                    meta_clone.id  = merged_id
+                    def read_group = "\'@RG\\tID:${merged_id}\\tSM:${merged_id}\\tPL:ILLUMINA\\tLB:${merged_id}\\tPU:1\'"
+                    if (params.seq_center) {
+                        read_group = "\'@RG\\tID:${merged_id}\\tSM:${merged_id}\\tPL:ILLUMINA\\tLB:${merged_id}\\tPU:1\\tCN:${params.seq_center}\'"
+                    }
+                    meta_clone.read_group = read_group
+                    [ meta_clone, reads ]
+            }
+            .groupTuple(by: [0])
+            .map {
+                meta, reads ->
+                    def r1 = reads.collect { it[0] }
+                    def r2 = meta.single_end ? [] : reads.collect { it[1] }
+                    [ meta, r1, r2 ]
+            }
+            .set { ch_clumpify_input }
+
+        DEDUP_CLUMPIFY (
+            ch_clumpify_input
+        )
+        ch_reads_for_alignment = DEDUP_CLUMPIFY.out.reads
+    }
+
+    //
     // SUBWORKFLOW: Alignment with BWA & BAM QC
     //
     ch_genome_bam        = channel.empty()
@@ -159,7 +198,7 @@ workflow CHIPSEQ {
     ch_samtools_idxstats = channel.empty()
     if (params.aligner == 'bwa') {
         FASTQ_ALIGN_BWA (
-            FASTQ_FASTQC_UMITOOLS_TRIMGALORE.out.reads,
+            ch_reads_for_alignment,
             ch_bwa_index,
             false,
             ch_fasta
@@ -179,7 +218,7 @@ workflow CHIPSEQ {
     //
     if (params.aligner == 'bowtie2') {
         FASTQ_ALIGN_BOWTIE2 (
-            FASTQ_FASTQC_UMITOOLS_TRIMGALORE.out.reads,
+            ch_reads_for_alignment,
             ch_bowtie2_index,
             params.save_unaligned,
             false,
@@ -200,7 +239,7 @@ workflow CHIPSEQ {
     //
     if (params.aligner == 'chromap') {
         FASTQ_ALIGN_CHROMAP (
-            FASTQ_FASTQC_UMITOOLS_TRIMGALORE.out.reads,
+            ch_reads_for_alignment,
             ch_chromap_index,
             ch_fasta
                 .map {
@@ -223,7 +262,7 @@ workflow CHIPSEQ {
     //
     if (params.aligner == 'star') {
         ALIGN_STAR (
-            FASTQ_FASTQC_UMITOOLS_TRIMGALORE.out.reads,
+            ch_reads_for_alignment,
             ch_star_index,
             ch_fasta
                 .map {
@@ -264,36 +303,51 @@ workflow CHIPSEQ {
 
 // Added by Kai: 
    // 
-   // MODULE: Deduplicate BAM in a multi-mapper aware way after merging
+   // MODULE: Deduplicate BAM after merging (skipped when dedup is done at the FASTQ level)
 
-    if (params.markduplicates == 'multimapper') {
-        BAM_MARKDUPLICATES_MULTIMAPPER (
+    if (params.dedup_level == 'fastq') {
+        // FASTQ-level dedup already performed with Clumpify; skip BAM-level dedup.
+        // Index the merged BAM and compute stats so downstream steps get the same interface.
+        BAM_INDEX_STATS_SAMTOOLS (
             PICARD_MERGESAMFILES.out.bam,
             ch_fasta
                 .map {
                     [ [:], it ]
-                },
-            ch_fai
-                .map {
-                    [ [:], it ]
                 }
         )
-        ch_dedup_bam = BAM_MARKDUPLICATES_MULTIMAPPER.out
-    } else if (params.markduplicates == 'picard') {
-        BAM_MARKDUPLICATES_PICARD (
-            PICARD_MERGESAMFILES.out.bam,
-            ch_fasta
-                .map {
-                    [ [:], it ]
-                },
-            ch_fai
-                .map {
-                    [ [:], it ]
-                }
-        )
-        ch_dedup_bam = BAM_MARKDUPLICATES_PICARD.out
+        ch_dedup_bam = BAM_INDEX_STATS_SAMTOOLS.out
+    } else if (params.dedup_level == 'bam') {
+        if (params.markduplicates == 'multimapper') {
+            BAM_MARKDUPLICATES_MULTIMAPPER (
+                PICARD_MERGESAMFILES.out.bam,
+                ch_fasta
+                    .map {
+                        [ [:], it ]
+                    },
+                ch_fai
+                    .map {
+                        [ [:], it ]
+                    }
+            )
+            ch_dedup_bam = BAM_MARKDUPLICATES_MULTIMAPPER.out
+        } else if (params.markduplicates == 'picard') {
+            BAM_MARKDUPLICATES_PICARD (
+                PICARD_MERGESAMFILES.out.bam,
+                ch_fasta
+                    .map {
+                        [ [:], it ]
+                    },
+                ch_fai
+                    .map {
+                        [ [:], it ]
+                    }
+            )
+            ch_dedup_bam = BAM_MARKDUPLICATES_PICARD.out
+        } else {
+            error("Invalid markduplicates parameter: ${params.markduplicates}")
+        }
     } else {
-        error("Invalid markduplicates parameter: ${params.markduplicates}")
+        error("Invalid dedup_level parameter: ${params.dedup_level}. Valid options are 'bam' or 'fastq'.")
     }
 
     //

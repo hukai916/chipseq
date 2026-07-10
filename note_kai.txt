@@ -20,3 +20,13 @@ nextflow run main.nf -profile mamba,lsf,singularity -c test.config -resume
 5. Compare with RNA-seq derived HERV expression profile
 
 # Data from: GSE283103
+
+# Nextflow commands:
+nextflow run main.nf -profile mamba,lsf,singularity -c test1.config -resume --markduplicates multimapper --te_gtf_only false
+
+bsub $longnode -o test2_config_log.txt nextflow run main.nf -profile mamba,lsf,singularity -c test2.config
+
+bsub $longnode -o test2_config_log_te_gtf_only.txt nextflow run main.nf -profile mamba,lsf,singularity -c test2.config --te_gtf_only true
+
+# Test of bowtie2
+bsub $longnode -o test2_config_log_te_gtf_only.txt nextflow run main.nf -profile mamba,lsf,singularity -c test2.config --te_gtf_only true

@@ -11,3 +11,21 @@ test_*
 test.*
 
 .nf-test*
+
+hs_err_pid*.log
+rclone_results_k25.log.txt
+rclone_results_k25_te_only.log.txt
+rclone_results_k5.log.txt
+rclone_results_k5_te_only.log.txt
+rclone_results_map5_teonly.log.txt
+results_k25/
+results_k25_te_only/
+results_k5/
+results_k5_te_only/
+run_log.txt
+run_log2.txt
+subworkflows/local/bam_allo_reduce/bin
+subworkflows/local/bam_markduplicates_multimapper/bin
+test/
+test2_config_log.txt
+test2_config_log_te_gtf_only.txt

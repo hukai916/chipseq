@@ -15,7 +15,7 @@ test.*
 hs_err_pid*.log
 rclone_results_k25.log.txt
 rclone_results_k25_te_only.log.txt
-rclone_results_k5.log.txt
+rclone_*
 rclone_results_k5_te_only.log.txt
 rclone_results_map5_teonly.log.txt
 results_k25/
@@ -29,3 +29,8 @@ subworkflows/local/bam_markduplicates_multimapper/bin
 test/
 test2_config_log.txt
 test2_config_log_te_gtf_only.txt
+
+test_resume/
+results*/*
+work_test5
+benchmark_dedup_te_only

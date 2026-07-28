@@ -245,14 +245,14 @@
                 "dedup_level": {
                     "type": "string",
                     "default": "bam",
-                    "description": "Level at which read deduplication is performed - 'bam' (default) marks/removes duplicates after alignment, 'fastq' deduplicates raw reads with Clumpify (BBTools) before alignment and skips the BAM-level deduplication step.",
+                    "description": "Level at which read deduplication is performed - 'bam' (default) marks duplicates after alignment, 'fastq' deduplicates raw reads with Clumpify (BBTools) before alignment and skips BAM-level dedup, 'none' skips all deduplication.",
                     "fa_icon": "fas fa-layer-group",
-                    "enum": ["bam", "fastq"]
+                    "enum": ["bam", "fastq", "none"]
                 },
                 "markduplicates": {
                     "type": "string",
                     "default": "picard",
-                    "description": "Tool used for BAM-level deduplication when dedup_level is 'bam' - 'picard' (default) or 'multimapper'.",
+                    "description": "Tool used for BAM-level deduplication when dedup_level is 'bam' - 'picard' (default) or 'multimapper'. Ignored when dedup_level is 'fastq' or 'none'.",
                     "fa_icon": "fas fa-copy",
                     "enum": ["picard", "multimapper"]
                 },

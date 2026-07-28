@@ -154,6 +154,7 @@ workflow CHIPSEQ {
     //
     // MODULE: Optional FASTQ-level deduplication with Clumpify (BBTools)
     // Added by Kai: when dedup_level == 'fastq', deduplicate reads here and skip BAM-level dedup.
+    // When dedup_level == 'none', both FASTQ- and BAM-level dedup are skipped.
     // Technical replicates / resequenced runs (same sample, differing by the _T\d+ suffix)
     // are pooled into a single merged library first, so Clumpify removes duplicates across
     // the whole library at once (matching the merged-library semantics of BAM-level dedup).
@@ -301,12 +302,13 @@ workflow CHIPSEQ {
         ch_sort_bam
     )
 
-// Added by Kai: 
-   // 
-   // MODULE: Deduplicate BAM after merging (skipped when dedup is done at the FASTQ level)
+// Added by Kai:
+   //
+   // MODULE: Deduplicate BAM after merging
+   // Skipped when dedup was done at FASTQ level, or when dedup_level == 'none'.
 
-    if (params.dedup_level == 'fastq') {
-        // FASTQ-level dedup already performed with Clumpify; skip BAM-level dedup.
+    if (params.dedup_level == 'fastq' || params.dedup_level == 'none') {
+        // No BAM-level dedup: either Clumpify already ran, or dedup is fully disabled.
         // Index the merged BAM and compute stats so downstream steps get the same interface.
         BAM_INDEX_STATS_SAMTOOLS (
             PICARD_MERGESAMFILES.out.bam,
@@ -347,7 +349,7 @@ workflow CHIPSEQ {
             error("Invalid markduplicates parameter: ${params.markduplicates}")
         }
     } else {
-        error("Invalid dedup_level parameter: ${params.dedup_level}. Valid options are 'bam' or 'fastq'.")
+        error("Invalid dedup_level parameter: ${params.dedup_level}. Valid options are 'bam', 'fastq', or 'none'.")
     }
 
     //
@@ -396,9 +398,11 @@ workflow CHIPSEQ {
 
     //
     // MODULE: Preseq coverage analysis
+    // Skip when FASTQ-level Clumpify dedup already removed PCR duplicates:
+    // Preseq needs duplicate multiplicity in the BAM to estimate complexity.
     //
     ch_preseq_multiqc = channel.empty()
-    if (!params.skip_preseq) {
+    if (!params.skip_preseq && params.dedup_level != 'fastq') {
         PRESEQ_LCEXTRAP (
             ch_dedup_bam.bam
         )

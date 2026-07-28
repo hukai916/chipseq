@@ -1,0 +1,1164 @@
+JOB_STARTER: slots=1 (LSB_DJOB_NUMPROC=1)
+Nextflow 26.04.6 is available - Please consider updating your version to it
+
+ N E X T F L O W   ~  version 25.10.4
+
+Launching `main.nf` [special_bassi] DSL2 - revision: 68c857869d
+
+
+------------------------------------------------------
+                                        ,--./,-.
+        ___     __   __   __   ___     /,-._.--~'
+  |\ | |__  __ /  ` /  \ |__) |__         }  {
+  | \| |       \__, \__/ |  \ |___     \`-._,-`-,
+                                        `._,._,'
+  nf-core/chipseq 2.2.0dev
+------------------------------------------------------
+
+Input/output options
+  input               : /home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/chipseq/assets/samplesheet_bing.csv
+  outdir              : results
+
+Reference genome options
+  fasta               : /home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/genome/GRCh38.primary_assembly.genome.fa.gz
+  gtf                 : /home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/genome/gencode.v49.annotation.gtf.gz
+  bowtie2_index       : /home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/chipseq/test/bowtie2
+  macs_gsize          : 2701262066
+  blacklist           : /home/kai.hu-umw/pi/arthur.mercurio-umw/BingSun/042026_ChIPseq/genome/hg38-blacklist.v2.bed.gz
+
+Alignment options
+  aligner             : bowtie2
+  markduplicates      : multimapper
+  keep_multi_map      : true
+  save_align_intermeds: true
+
+Peak calling options
+  narrow_peak         : true
+
+Generic options
+  publish_dir_mode    : symlink
+  trace_report_suffix : 2026-07-20_11-35-10
+
+Core Nextflow options
+  runName             : special_bassi
+  containerEngine     : singularity
+  launchDir           : /pi/thomas.fazzio-umw/Kai/art/chipseq
+  workDir             : /pi/thomas.fazzio-umw/Kai/art/chipseq/work
+  projectDir          : /pi/thomas.fazzio-umw/Kai/art/chipseq
+  userName            : kai.hu-umw
+  profile             : mamba,lsf,singularity
+  configFiles         : /pi/thomas.fazzio-umw/Kai/art/chipseq/nextflow.config, /pi/thomas.fazzio-umw/Kai/art/chipseq/test3.config
+
+!! Only displaying parameters that differ from the pipeline defaults !!
+------------------------------------------------------
+
+* The pipeline
+    https://doi.org/10.5281/zenodo.3240506
+
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/chipseq/blob/master/CITATIONS.md
+
+WARN: The following invalid input values have been detected:
+
+* --mito_name: chrM
+* --te_gtf: /pi/thomas.fazzio-umw/Kai/art/chipseq/assets/transcripts.gtf
+* --allo_mode: --mixed
+* --use_allo: true
+
+
+[-        ] NFC…REPARE_GENOME:GUNZIP_FASTA -
+
+[-        ] NFC…REPARE_GENOME:GUNZIP_FASTA -
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…RE_GENOME:GUNZIP_BLACKLIST -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[-        ] NFC…UT_CHECK:SAMPLESHEET_CHECK -
+
+[-        ] NFC…REPARE_GENOME:GUNZIP_FASTA -
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…RE_GENOME:GUNZIP_BLACKLIST -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[-        ] NFC…UT_CHECK:SAMPLESHEET_CHECK -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…LIGN_BOWTIE2:BOWTIE2_ALIGN -
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+
+[-        ] NFC…REPARE_GENOME:GUNZIP_FASTA -
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…RE_GENOME:GUNZIP_BLACKLIST -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[-        ] NFC…UT_CHECK:SAMPLESHEET_CHECK -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…LIGN_BOWTIE2:BOWTIE2_ALIGN -
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 1 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[-        ] NFC…REPARE_GENOME:GUNZIP_FASTA -
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…RE_GENOME:GUNZIP_BLACKLIST -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[-        ] NFC…UT_CHECK:SAMPLESHEET_CHECK -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…LIGN_BOWTIE2:BOWTIE2_ALIGN -
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 16 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[-        ] NFC…REPARE_GENOME:GUNZIP_FASTA -
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…RE_GENOME:GUNZIP_BLACKLIST -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[-        ] NFC…UT_CHECK:SAMPLESHEET_CHECK -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…LIGN_BOWTIE2:BOWTIE2_ALIGN -
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 27 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[-        ] NFC…REPARE_GENOME:GUNZIP_FASTA -
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…RE_GENOME:GUNZIP_BLACKLIST -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[-        ] NFC…UT_CHECK:SAMPLESHEET_CHECK -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…LIGN_BOWTIE2:BOWTIE2_ALIGN -
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 35 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[-        ] NFC…REPARE_GENOME:GUNZIP_FASTA -
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…RE_GENOME:GUNZIP_BLACKLIST -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[-        ] NFC…UT_CHECK:SAMPLESHEET_CHECK -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…LIGN_BOWTIE2:BOWTIE2_ALIGN -
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 41 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[-        ] NFC…REPARE_GENOME:GUNZIP_FASTA -
+[-        ] NFC…:PREPARE_GENOME:GUNZIP_GTF -
+[-        ] NFC…RE_GENOME:GUNZIP_BLACKLIST -
+[-        ] NFC…SEQ:PREPARE_GENOME:GTF2BED -
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[-        ] NFC…UT_CHECK:SAMPLESHEET_CHECK -
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…LIGN_BOWTIE2:BOWTIE2_ALIGN -
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[-        ] NFC…PARE_GENOME:SAMTOOLS_FAIDX -
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1
+[-        ] NFC…UMITOOLS_TRIMGALORE:FASTQC -
+[-        ] NFC…OOLS_TRIMGALORE:TRIMGALORE -
+[-        ] NFC…LIGN_BOWTIE2:BOWTIE2_ALIGN -
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[ec/db69ba] NFC…LORE:FASTQC (DMSO_REP1_T1) | 2 of 2, cached: 2
+[47/bdb560] NFC…:TRIMGALORE (DMSO_REP1_T1) | 2 of 2, cached: 2
+[-        ] NFC…LIGN_BOWTIE2:BOWTIE2_ALIGN -
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[-        ] NFC…E:GENOME_BLACKLIST_REGIONS -
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[0b/d024f4] NFC…LORE:FASTQC (DMSO_REP2_T1) | 4 of 4, cached: 4
+[47/bdb560] NFC…:TRIMGALORE (DMSO_REP1_T1) | 2 of 2, cached: 2
+[a2/99301d] NFC…WTIE2_ALIGN (DMSO_REP1_T2) | 1 of 1, cached: 1
+[-        ] NFC…ATS_SAMTOOLS:SAMTOOLS_SORT -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[ad/dc5002] NFC…LORE:FASTQC (DMSO_REP3_T1) | 7 of 7, cached: 7
+[a9/df1189] NFC…:TRIMGALORE (DMSO_REP2_T1) | 4 of 4, cached: 4
+[74/500702] NFC…WTIE2_ALIGN (DMSO_REP1_T1) | 2 of 2, cached: 2
+[a0/d07124] NFC…MTOOLS_SORT (DMSO_REP1_T2) | 1 of 1, cached: 1
+[a8/867bfd] NFC…TOOLS_INDEX (DMSO_REP1_T2) | 1 of 1, cached: 1
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[5e/6c2ba7] NFC…ASTQC (DMSO_INPUT_REP2_T1) | 9 of 9, cached: 9
+[85/fd7257] NFC…:TRIMGALORE (DMSO_REP3_T2) | 6 of 6, cached: 6
+[6a/370d0d] NFC…WTIE2_ALIGN (DMSO_REP2_T2) | 4 of 4, cached: 4
+[b3/a684c3] NFC…MTOOLS_SORT (DMSO_REP2_T1) | 3 of 3, cached: 3
+[72/0064bd] NFC…TOOLS_INDEX (DMSO_REP1_T1) | 2 of 2, cached: 2
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[85/f62392] NFC…ASTQC (DMSO_INPUT_REP3_T1) | 12 of 12, cached: 12
+[97/9b3b0d] NFC…ALORE (DMSO_INPUT_REP1_T2) | 8 of 8, cached: 8
+[37/d12eb6] NFC…WTIE2_ALIGN (DMSO_REP3_T1) | 6 of 6, cached: 6
+[6d/008a98] NFC…MTOOLS_SORT (DMSO_REP3_T2) | 6 of 6, cached: 6
+[dc/d0754f] NFC…TOOLS_INDEX (DMSO_REP2_T1) | 3 of 3, cached: 3
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[bb/afc475] NFC…LORE:FASTQC (OICR_REP1_T2) | 14 of 14, cached: 14
+[77/cfee11] NFC…ALORE (DMSO_INPUT_REP2_T2) | 10 of 10, cached: 10
+[de/11788c] NFC…ALIGN (DMSO_INPUT_REP1_T1) | 8 of 8, cached: 8
+[15/b7df8b] NFC…_SORT (DMSO_INPUT_REP1_T2) | 7 of 7, cached: 7
+[7c/00479f] NFC…TOOLS_INDEX (DMSO_REP3_T2) | 6 of 6, cached: 6
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[db/b7c5b5] NFC…LORE:FASTQC (OICR_REP2_T1) | 16 of 16, cached: 16
+[15/afc2f1] NFC…ALORE (DMSO_INPUT_REP3_T1) | 12 of 12, cached: 12
+[72/fe392c] NFC…ALIGN (DMSO_INPUT_REP2_T2) | 10 of 10, cached: 10
+[6c/a22a98] NFC…_SORT (DMSO_INPUT_REP1_T1) | 8 of 8, cached: 8
+[9f/dc4564] NFC…INDEX (DMSO_INPUT_REP1_T2) | 7 of 7, cached: 7
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[84/f8340e] NFC…LORE:FASTQC (OICR_REP3_T1) | 18 of 18, cached: 18
+[3c/f69a1f] NFC…:TRIMGALORE (OICR_REP1_T1) | 14 of 14, cached: 14
+[e9/2e9079] NFC…ALIGN (DMSO_INPUT_REP3_T2) | 12 of 12, cached: 12
+[48/e9150c] NFC…_SORT (DMSO_INPUT_REP2_T2) | 10 of 10, cached: 10
+[6d/e15426] NFC…INDEX (DMSO_INPUT_REP2_T2) | 10 of 10, cached: 10
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[fe/28635d] NFC…ASTQC (OICR_INPUT_REP1_T1) | 20 of 20, cached: 20
+[a5/9e2a25] NFC…:TRIMGALORE (OICR_REP2_T1) | 16 of 16, cached: 16
+[3c/58db04] NFC…WTIE2_ALIGN (OICR_REP1_T2) | 14 of 14, cached: 14
+[89/9be37b] NFC…MTOOLS_SORT (OICR_REP1_T1) | 13 of 13, cached: 13
+[df/e162bd] NFC…INDEX (DMSO_INPUT_REP3_T2) | 12 of 12, cached: 12
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[d0/2fdb06] NFC…ASTQC (OICR_INPUT_REP2_T1) | 22 of 22, cached: 22
+[58/27f38f] NFC…:TRIMGALORE (OICR_REP3_T1) | 18 of 18, cached: 18
+[77/1b0dd3] NFC…WTIE2_ALIGN (OICR_REP2_T1) | 16 of 16, cached: 16
+[f9/118b7e] NFC…MTOOLS_SORT (OICR_REP2_T2) | 15 of 15, cached: 15
+[c6/2c2fed] NFC…TOOLS_INDEX (OICR_REP2_T2) | 15 of 15, cached: 15
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e2/b6cd52] NFC…ASTQC (OICR_INPUT_REP3_T1) | 24 of 24, cached: 24
+[72/7f15d7] NFC…ALORE (OICR_INPUT_REP1_T2) | 20 of 20, cached: 20
+[80/fd5857] NFC…WTIE2_ALIGN (OICR_REP3_T1) | 18 of 18, cached: 18
+[3e/a767a6] NFC…MTOOLS_SORT (OICR_REP2_T1) | 16 of 16, cached: 16
+[c6/2c2fed] NFC…TOOLS_INDEX (OICR_REP2_T2) | 15 of 15, cached: 15
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+executor >  lsf (1)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[04/f8c14e] NFC…ALORE (OICR_INPUT_REP3_T1) | 23 of 23, cached: 23
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 18 of 22, cached: 18
+[39/4db52d] NFC…MTOOLS_SORT (OICR_REP3_T1) | 18 of 18, cached: 18
+[b4/ec51dc] NFC…TOOLS_INDEX (OICR_REP3_T2) | 17 of 17, cached: 17
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+executor >  lsf (2)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27
+[4c/b64829] NFC…ALIGN (OICR_INPUT_REP1_T1) | 18 of 26, cached: 18
+[39/4db52d] NFC…MTOOLS_SORT (OICR_REP3_T1) | 18 of 18, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+executor >  lsf (4)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[67/80a1e4] NFC…ALIGN (OICR_INPUT_REP2_T2) | 18 of 27, cached: 18
+[39/4db52d] NFC…MTOOLS_SORT (OICR_REP3_T1) | 18 of 18, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+executor >  lsf (6)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[8f/f0df68] NFC…ALIGN (OICR_INPUT_REP3_T2) | 18 of 27, cached: 18
+[39/4db52d] NFC…MTOOLS_SORT (OICR_REP3_T1) | 18 of 18, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+executor >  lsf (7)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[a2/33fe00] NFC…_ALIGN (Untreated_REP1_T2) | 18 of 27, cached: 18
+[39/4db52d] NFC…MTOOLS_SORT (OICR_REP3_T1) | 18 of 18, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+executor >  lsf (9)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[99/2a8c9d] NFC… (Untreated_INPUT_REP1_T1) | 18 of 27, cached: 18
+[39/4db52d] NFC…MTOOLS_SORT (OICR_REP3_T1) | 18 of 18, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+WARN: The operator `first` is useless when applied to a value channel which returns a single value by definition -- check channel `ch_filtered_bed`
+
+executor >  lsf (9)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[99/2a8c9d] NFC… (Untreated_INPUT_REP1_T1) | 18 of 27, cached: 18
+[39/4db52d] NFC…MTOOLS_SORT (OICR_REP3_T1) | 18 of 18, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+
+executor >  lsf (9)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[39/4db52d] NFC…MTOOLS_SORT (OICR_REP3_T1) | 18 of 19, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+
+executor >  lsf (10)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 18 of 19, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (10)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 18 of 19, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (10)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 18 of 19, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 18, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (11)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[12/f01217] NFC…TOOLS_INDEX (OICR_REP3_T1) | 18 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (11)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 18 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (11)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 18 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (11)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (11)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (11)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (11)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[08/745ca3] NFC…ALIGN (OICR_INPUT_REP1_T2) | 19 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (11)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[4c/b64829] NFC…ALIGN (OICR_INPUT_REP1_T1) | 20 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (11)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[4c/b64829] NFC…ALIGN (OICR_INPUT_REP1_T1) | 20 of 27, cached: 18
+[28/45b793] NFC…_SORT (OICR_INPUT_REP1_T2) | 19 of 20, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (12)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[4c/b64829] NFC…ALIGN (OICR_INPUT_REP1_T1) | 20 of 27, cached: 18
+[e6/d60ff8] NFC…_SORT (OICR_INPUT_REP1_T1) | 19 of 20, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (12)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[60/fa8fe7] NFC…ALIGN (OICR_INPUT_REP2_T1) | 21 of 27, cached: 18
+[e6/d60ff8] NFC…_SORT (OICR_INPUT_REP1_T1) | 19 of 21, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (13)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[60/fa8fe7] NFC…ALIGN (OICR_INPUT_REP2_T1) | 21 of 27, cached: 18
+[87/9d824f] NFC…_SORT (OICR_INPUT_REP2_T1) | 19 of 21, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (13)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[60/fa8fe7] NFC…ALIGN (OICR_INPUT_REP2_T1) | 21 of 27, cached: 18
+[87/9d824f] NFC…_SORT (OICR_INPUT_REP2_T1) | 19 of 21, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+
+executor >  lsf (13)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[99/2a8c9d] NFC… (Untreated_INPUT_REP1_T1) | 21 of 27, cached: 18
+[87/9d824f] NFC…_SORT (OICR_INPUT_REP2_T1) | 19 of 21, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+-[nf-core/chipseq] Pipeline completed with errors-
+WARN: Killing running tasks (8)
+
+executor >  lsf (13)
+[f5/3527c7] NFC…ary_assembly.genome.fa.gz) | 1 of 1, cached: 1 ✔
+[85/690607] NFC…ode.v49.annotation.gtf.gz) | 1 of 1, cached: 1 ✔
+[03/32c2d1] NFC…(hg38-blacklist.v2.bed.gz) | 1 of 1, cached: 1 ✔
+[a3/36f911] NFC…encode.v49.annotation.gtf) | 1 of 1, cached: 1 ✔
+[c8/a09d70] NFC…rimary_assembly.genome.fa) | 1 of 1, cached: 1 ✔
+[a6/dd9676] NFC…_assembly.genome.fa.sizes) | 1 of 1, cached: 1 ✔
+[05/9921d9] NFC…ECK (samplesheet_bing.csv) | 1 of 1, cached: 1 ✔
+[e1/1724d7] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[b2/b4d2f1] NFC… (Untreated_INPUT_REP1_T1) | 27 of 27, cached: 27 ✔
+[99/2a8c9d] NFC… (Untreated_INPUT_REP1_T1) | 21 of 27, cached: 18
+[87/9d824f] NFC…_SORT (OICR_INPUT_REP2_T1) | 19 of 21, cached: 18
+[24/4882f8] NFC…INDEX (OICR_INPUT_REP1_T2) | 19 of 19, cached: 18
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_IDXSTATS -
+[-        ] NFC…IPSEQ:PICARD_MERGESAMFILES -
+[-        ] NFC…TIMAPPER:DEDUP_MULTIMAPPER -
+[-        ] NFC…MULTIMAPPER:SAMTOOLS_INDEX -
+[-        ] NFC…TS_SAMTOOLS:SAMTOOLS_STATS -
+[-        ] NFC…SAMTOOLS:SAMTOOLS_FLAGSTAT -
+Plus 42 more processes waiting for tasks…
+-[nf-core/chipseq] Pipeline completed with errors-
+WARN: Killing running tasks (8)
+ERROR ~ Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting
+
+ -- Check '.nextflow.log' file for details
+
+WARN: Failed to render execution report -- see the log file for details
+WARN: Failed to render execution timeline -- see the log file for details
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@r640c23>
+Subject: Job 22699: <nextflow run main.nf -profile mamba,lsf,singularity -c test3.config -resume 006d30bb-8f34-4d7d-915b-e27679de0518> in cluster <sci> Exited
+
+Job <nextflow run main.nf -profile mamba,lsf,singularity -c test3.config -resume 006d30bb-8f34-4d7d-915b-e27679de0518> was submitted from host <r640c31> by user <kai.hu-umw> in cluster <sci> at Mon Jul 20 11:34:57 2026
+Job was executed on host(s) <r640c23>, in queue <long>, as user <kai.hu-umw> in cluster <sci> at Mon Jul 20 11:34:58 2026
+</home/kai.hu-umw> was used as the home directory.
+</home/kai.hu-umw/pi/thomas.fazzio-umw/art/chipseq> was used as the working directory.
+Started at Mon Jul 20 11:34:58 2026
+Terminated at Mon Jul 20 14:08:47 2026
+Results reported at Mon Jul 20 14:08:47 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+nextflow run main.nf -profile mamba,lsf,singularity -c test3.config -resume 006d30bb-8f34-4d7d-915b-e27679de0518
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   99.28 sec.
+    Max Memory :                                 678 MB
+    Average Memory :                             669.55 MB
+    Total Requested Memory :                     40000.00 MB
+    Delta Memory :                               39322.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                56
+    Run time :                                   9229 sec.
+    Turnaround time :                            9230 sec.
+
+The output (if any) is above this job summary.
+
